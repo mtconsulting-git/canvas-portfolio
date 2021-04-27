@@ -148,7 +148,10 @@
           </div>
         </div>
 
-        <div v-if="isReady && !hasPublishedPosts && settings.blogEnabled" class="card shadow mt-5">
+        <div
+          v-if="isReady && !hasPublishedPosts && settings.blogEnabled"
+          class="card shadow mt-5"
+        >
           <div class="card-body p-0">
             <div class="my-5">
               <p class="lead text-center text-muted mt-5">
@@ -203,7 +206,7 @@ export default {
 
   computed: {
     ...mapState({
-      settings: "settings"
+      settings: "settings",
     }),
     ...mapGetters({
       isAdmin: "settings/isAdmin",
