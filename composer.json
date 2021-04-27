@@ -1,13 +1,7 @@
 {
-    "name": "austintoddj/canvas",
+    "name": "mtconsultingroup/canvas-portfolio",
     "description": "A Laravel publishing platform",
-    "keywords": ["blog", "canvas", "laravel", "publishing", "platform"],
     "license": "MIT",
-    "homepage": "https://trycanvas.app",
-    "support": {
-        "issues": "https://github.com/austintoddj/canvas/issues",
-        "source": "https://github.com/austintoddj/canvas"
-    },
     "authors": [
         {
             "name": "Todd Austin",
@@ -16,6 +10,10 @@
         {
             "name": "Luca Quagliana",
             "email": "luca.quagliana97@gmail.com"
+        },
+        {
+            "name": "Lorenzo Tosetti",
+            "email": "info@tosettil.me"
         }
     ],
     "require": {
