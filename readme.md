@@ -26,7 +26,7 @@ Canvas is a fully open source package to extend your existing [Laravel](https://
 You may use composer to install Canvas into your Laravel project:
 
 ```bash
-composer require austintoddj/canvas
+composer require mtconsultingroup/canvas-portfolio
 ```
 
 Publish the assets and primary configuration file using the `canvas:install` Artisan command:
