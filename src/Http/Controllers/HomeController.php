@@ -29,6 +29,7 @@ class HomeController extends Controller
                 'user' => request()->user('canvas'),
                 'version' => Canvas::installedVersion(),
                 'portfolioEnabled' => config('canvas.portfolio.enabled'),
+                'blogEnabled' => config('canvas.blog.enabled'),
                 'languages' => explode(',', config('canvas.languages')),
                 'google_translate' => config('canvas.google_translate.access_key'),
             ],

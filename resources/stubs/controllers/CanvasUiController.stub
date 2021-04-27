@@ -6,6 +6,7 @@ use Canvas\Models\Category;
 use Canvas\Models\Portfolio;
 use Canvas\Models\User;
 use Canvas\Events\PostViewed;
+use Canvas\Events\PortfolioViewed;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
@@ -127,7 +128,13 @@ class CanvasUiController extends Controller
     {
         $portfolio = Portfolio::with('user', 'portfolio_category')->firstWhere('slug', $slug);
 
-        return response()->json($portfolio, 200);
+        if ($portfolio) {
+            event(new PortfolioViewed($portfolio));
+
+            return response()->json($portfolio, 200);
+        } else {
+            return response()->json(null, 404);
+        }
     }
 
     /**

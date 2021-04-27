@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="mt-5 text-center">
-            <p class="text-muted">Powered by <a href="https://www.mtconsultingroup.it/" class="text-primary text-decoration-none" target="_blank">MT Studio</a></p>
+            <p class="text-muted">Powered by <a href="https://www.mtconsultingroup.it/" class="text-primary text-decoration-none" target="_blank">MT Consulting</a></p>
         </div>
     </main>
 @endsection

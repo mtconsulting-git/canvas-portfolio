@@ -2,88 +2,82 @@
   <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div ref="modal" class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header d-flex align-items-center justify-content-between">
+        <div
+          class="modal-header d-flex align-items-center justify-content-between"
+        >
           <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click.prevent="closeModal"
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            @click.prevent="closeModal"
           >
             <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="24"
-                class="icon-close-circle"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              class="icon-close-circle"
             >
-              <circle cx="12" cy="12" r="10" class="fill-light-gray"/>
+              <circle cx="12" cy="12" r="10" class="fill-light-gray" />
               <path
-                  class="fill-bg"
-                  d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"
+                class="fill-bg"
+                d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"
               />
             </svg>
           </button>
         </div>
         <div class="modal-body pb-0">
           <file-pond
-              ref="pond_gallery"
-              name="GalleryImages"
-              :max-file-size="settings.maxUpload"
-              :icon-remove="getRemoveIcon"
-              :icon-retry="getRetryIcon"
-              :label-idle="getPlaceholderLabel"
-              accepted-file-types="image/*"
-              :server="getServerOptions"
-              :allowRevert="noImagesInGallery"
-              :allowProcess="false"
-              :allow-multiple="true"
-              :files="selectedImagesForPond"
-              @processfile="updateFilePond"
-              @removefile="updateFilePond"
+            ref="pond_gallery"
+            name="GalleryImages"
+            :max-file-size="settings.maxUpload"
+            :icon-remove="getRemoveIcon"
+            :icon-retry="getRetryIcon"
+            :label-idle="getPlaceholderLabel"
+            accepted-file-types="image/*"
+            :server="getServerOptions"
+            :allowRevert="noImagesInGallery"
+            :allowProcess="false"
+            :allow-multiple="true"
+            :files="selectedImagesForPond"
+            @processfile="updateFilePond"
+            @removefile="updateFilePond"
           />
 
           <div v-if="!noImagesInGallery">
-
-            <div v-for="(image) in post.gallery_images">
-
+            <div v-for="image in post.gallery_images">
               <div class="selected-image-gallery">
                 <button
-                    type="button"
-                    class="close"
-                    @click.prevent="deleteImageFromGallery(image)"
+                  type="button"
+                  class="close"
+                  @click.prevent="deleteImageFromGallery(image)"
                 >
                   <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      class="icon-trash"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    class="icon-trash"
                   >
                     <path
-                        class="fill-light-gray"
-                        d="M5 5h14l-.89 15.12a2 2 0 0 1-2 1.88H7.9a2 2 0 0 1-2-1.88L5 5zm5 5a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1z"
+                      class="fill-light-gray"
+                      d="M5 5h14l-.89 15.12a2 2 0 0 1-2 1.88H7.9a2 2 0 0 1-2-1.88L5 5zm5 5a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1z"
                     />
                     <path
-                        class="fill-light-gray"
-                        d="M8.59 4l1.7-1.7A1 1 0 0 1 11 2h2a1 1 0 0 1 .7.3L15.42 4H19a1 1 0 0 1 0 2H5a1 1 0 1 1 0-2h3.59z"
+                      class="fill-light-gray"
+                      d="M8.59 4l1.7-1.7A1 1 0 0 1 11 2h2a1 1 0 0 1 .7.3L15.42 4H19a1 1 0 0 1 0 2H5a1 1 0 1 1 0-2h3.59z"
                     />
                   </svg>
                 </button>
-                <img
-                    :src="image"
-                    class="w-100 rounded mb-3"
-                    alt=""
-                />
+                <img :src="image" class="w-100 rounded mb-3" alt="" />
               </div>
-
             </div>
           </div>
-
         </div>
         <div class="modal-footer">
           <button
-              class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
-              data-dismiss="modal"
-              @click="update"
+            class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
+            data-dismiss="modal"
+            @click="update"
           >
             {{ trans.done }}
           </button>
@@ -94,31 +88,31 @@
 </template>
 
 <script>
-import {mapGetters, mapState} from 'vuex';
-import InfiniteLoading from 'vue-infinite-loading';
-import debounce from 'lodash/debounce';
-import vueFilePond from 'vue-filepond';
-import $ from 'jquery';
+import { mapGetters, mapState } from "vuex";
+import InfiniteLoading from "vue-infinite-loading";
+import debounce from "lodash/debounce";
+import vueFilePond from "vue-filepond";
+import $ from "jquery";
 
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-import 'filepond/dist/filepond.min.css';
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+import "filepond/dist/filepond.min.css";
 
-import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginImageValidateSize from "filepond-plugin-image-validate-size";
 
 const FilePond = vueFilePond(
-    FilePondPluginFileValidateType,
-    FilePondPluginImagePreview,
-    FilePondPluginImageValidateSize,
-    FilePondPluginFileValidateSize,
-    FilePondPluginImageExifOrientation
+  FilePondPluginFileValidateType,
+  FilePondPluginImagePreview,
+  FilePondPluginImageValidateSize,
+  FilePondPluginFileValidateSize,
+  FilePondPluginImageExifOrientation
 );
 
 export default {
-  name: 'gallery-modal',
+  name: "gallery-modal",
 
   components: {
     InfiniteLoading,
@@ -136,21 +130,22 @@ export default {
     return {
       noImagesInGallery: true,
       selectedImagesForPond: [],
-      galleryModalClasses: ['modal-xl', 'modal-dialog-scrollable'],
+      galleryModalClasses: ["modal-xl", "modal-dialog-scrollable"],
     };
   },
 
   computed: {
-    ...mapState(['settings']),
+    ...mapState(["settings"]),
     ...mapGetters({
-      trans: 'settings/trans',
+      trans: "settings/trans",
     }),
 
     getServerOptions() {
       return {
         url: `${this.settings.path}/api/uploads`,
         headers: {
-          'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
+          "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]')
+            .content,
         },
       };
     },
@@ -175,11 +170,10 @@ export default {
   },
 
   methods: {
-
     updateFilePond() {
       let old = this.post.gallery_images;
       this.post.gallery_images = [];
-      let arr = document.getElementsByName('GalleryImages');
+      let arr = document.getElementsByName("GalleryImages");
       for (let i = 0; i < arr.length; i++) {
         if (arr[i].value) {
           this.post.gallery_images.push(arr[i].value);
@@ -191,8 +185,10 @@ export default {
             this.post.gallery_images.push(old[i]);
           }
         }
-        let totalFiles = $('.filepond--item').length;
-        let completedFiles = $('.filepond--item[data-filepond-item-state="processing-complete"]').length;
+        let totalFiles = $(".filepond--item").length;
+        let completedFiles = $(
+          '.filepond--item[data-filepond-item-state="processing-complete"]'
+        ).length;
         if (completedFiles === totalFiles) {
           this.selectedImagesForPond = [];
         }
@@ -215,7 +211,7 @@ export default {
     },
 
     update: debounce(function () {
-      this.$emit('update-post');
+      this.$emit("update-post");
     }, 3000),
   },
 };

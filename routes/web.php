@@ -48,54 +48,57 @@ Route::middleware([AuthenticatedMiddleware::class])->group(function () {
             Route::post('/', [UploadsController::class, 'store']);
             Route::delete('/', [UploadsController::class, 'destroy']);
         });
+        if (config('canvas.blog.enabled')) {
+            Route::prefix('posts')->group(function () {
+                Route::get('/', [PostController::class, 'index']);
+                Route::get('create', [PostController::class, 'create']);
+                Route::get('{id}', [PostController::class, 'show']);
+                Route::post('{id}', [PostController::class, 'store']);
+                Route::delete('{id}', [PostController::class, 'destroy']);
+            });
 
-        Route::prefix('posts')->group(function () {
-            Route::get('/', [PostController::class, 'index']);
-            Route::get('create', [PostController::class, 'create']);
-            Route::get('{id}', [PostController::class, 'show']);
-            Route::post('{id}', [PostController::class, 'store']);
-            Route::delete('{id}', [PostController::class, 'destroy']);
-        });
+            Route::prefix('tags')->middleware([AdminMiddleware::class])->group(function () {
+                Route::get('/', [TagController::class, 'index']);
+                Route::get('create', [TagController::class, 'create']);
+                Route::get('{id}', [TagController::class, 'show']);
+                Route::get('{id}/posts', [TagController::class, 'showPosts']);
+                Route::post('{id}', [TagController::class, 'store']);
+                Route::delete('{id}', [TagController::class, 'destroy']);
+            });
 
-        Route::prefix('tags')->middleware([AdminMiddleware::class])->group(function () {
-            Route::get('/', [TagController::class, 'index']);
-            Route::get('create', [TagController::class, 'create']);
-            Route::get('{id}', [TagController::class, 'show']);
-            Route::get('{id}/posts', [TagController::class, 'showPosts']);
-            Route::post('{id}', [TagController::class, 'store']);
-            Route::delete('{id}', [TagController::class, 'destroy']);
-        });
-
-        Route::prefix('topics')->middleware([AdminMiddleware::class])->group(function () {
-            Route::get('/', [TopicController::class, 'index']);
-            Route::get('create', [TopicController::class, 'create']);
-            Route::get('{id}', [TopicController::class, 'show']);
-            Route::get('{id}/posts', [TopicController::class, 'showPosts']);
-            Route::post('{id}', [TopicController::class, 'store']);
-            Route::delete('{id}', [TopicController::class, 'destroy']);
-        });
+            Route::prefix('topics')->middleware([AdminMiddleware::class])->group(function () {
+                Route::get('/', [TopicController::class, 'index']);
+                Route::get('create', [TopicController::class, 'create']);
+                Route::get('{id}', [TopicController::class, 'show']);
+                Route::get('{id}/posts', [TopicController::class, 'showPosts']);
+                Route::post('{id}', [TopicController::class, 'store']);
+                Route::delete('{id}', [TopicController::class, 'destroy']);
+            });
+        }
 
         Route::prefix('stats')->group(function () {
             Route::get('/', [StatsController::class, 'index']);
             Route::get('{id}', [StatsController::class, 'show']);
         });
 
-        Route::prefix('portfolios')->group(function () {
-            Route::get('/', [PortfolioController::class, 'index']);
-            Route::get('create', [PortfolioController::class, 'create']);
-            Route::get('{id}', [PortfolioController::class, 'show']);
-            Route::post('{id}', [PortfolioController::class, 'store']);
-            Route::delete('{id}', [PortfolioController::class, 'destroy']);
-        });
+        if (config('canvas.portfolio.enabled')) {
+            Route::prefix('portfolios')->group(function () {
+                Route::get('/', [PortfolioController::class, 'index']);
+                Route::get('create', [PortfolioController::class, 'create']);
+                Route::get('{id}', [PortfolioController::class, 'show']);
+                Route::post('{id}', [PortfolioController::class, 'store']);
+                Route::delete('{id}', [PortfolioController::class, 'destroy']);
+            });
 
-        Route::prefix('portfolio_categories')->middleware([AdminMiddleware::class])->group(function () {
-            Route::get('/', [PortfolioCategoryController::class, 'index']);
-            Route::get('create', [PortfolioCategoryController::class, 'create']);
-            Route::get('{id}', [PortfolioCategoryController::class, 'show']);
-            Route::get('{id}/portfolios', [PortfolioCategoryController::class, 'showPortfolios']);
-            Route::post('{id}', [PortfolioCategoryController::class, 'store']);
-            Route::delete('{id}', [PortfolioCategoryController::class, 'destroy']);
-        });
+            Route::prefix('portfolio_categories')->middleware([AdminMiddleware::class])->group(function () {
+                Route::get('/', [PortfolioCategoryController::class, 'index']);
+                Route::get('create', [PortfolioCategoryController::class, 'create']);
+                Route::get('{id}', [PortfolioCategoryController::class, 'show']);
+                Route::get('{id}/portfolios', [PortfolioCategoryController::class, 'showPortfolios']);
+                Route::post('{id}', [PortfolioCategoryController::class, 'store']);
+                Route::delete('{id}', [PortfolioCategoryController::class, 'destroy']);
+            });
+        }
 
         Route::prefix('users')->group(function () {
             Route::get('/', [UserController::class, 'index'])->middleware([AdminMiddleware::class]);
@@ -107,16 +110,27 @@ Route::middleware([AuthenticatedMiddleware::class])->group(function () {
         });
 
         Route::prefix('search')->group(function () {
-            Route::get('posts', [SearchController::class, 'showPosts']);
-            Route::get('tags', [SearchController::class, 'showTags'])->middleware([AdminMiddleware::class]);
-            Route::get('topics', [SearchController::class, 'showTopics'])->middleware([AdminMiddleware::class]);
-            Route::get('portfolios', [SearchController::class, 'showPortfolios']);
-            Route::get('portfolio-categories', [SearchController::class, 'showPortfolioCategories'])->middleware([AdminMiddleware::class]);
+            if (config('canvas.blog.enabled')) {
+                Route::get('posts', [SearchController::class, 'showPosts']);
+                Route::get('tags', [SearchController::class, 'showTags'])->middleware([AdminMiddleware::class]);
+                Route::get('topics', [SearchController::class, 'showTopics'])->middleware([AdminMiddleware::class]);
+            }
+
+            if (config('canvas.portfolio.enabled')) {
+                Route::get('portfolios', [SearchController::class, 'showPortfolios']);
+                Route::get('portfolio-categories', [SearchController::class, 'showPortfolioCategories'])->middleware([AdminMiddleware::class]);
+            }
+
             Route::get('users', [SearchController::class, 'showUsers'])->middleware([AdminMiddleware::class]);
         });
 
-        Route::post('translation', [TranslationController::class, 'translate']);
+        if (!empty(config('canvas.google_translate.access_key'))) {
+            Route::post('translation', [TranslationController::class, 'translate']);
+        }
 
+        Route::get('/*', function () {
+            return response()->json([], 404);
+        });
     });
 
     // Catch-all route...

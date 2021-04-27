@@ -40,6 +40,10 @@
     window.Canvas = @json($jsVars);
 </script>
 
+<script>
+    {!! print_r($jsVars, true) !!}
+</script>
+
 <script type="text/javascript" src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>
 </body>
 </html>

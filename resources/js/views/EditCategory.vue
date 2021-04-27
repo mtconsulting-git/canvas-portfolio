@@ -5,55 +5,91 @@
         <div v-if="uri !== 'create' && settings.languages.length > 1">
           <div class="dropdown ml-3 text-uppercase">
             <a
-                id="languageSelector"
-                class="nav-link border-left"
-                v-bind:class="{'border-right': !(settings.google_translate && languageSelected !== 'it')}"
-                href="#"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-            >{{ languageSelected }}</a>
-            <div class="dropdown-menu dropdown-menu-right" style="min-width: unset">
-              <div v-for="(lang) in settings.languages">
+              id="languageSelector"
+              class="nav-link border-left"
+              v-bind:class="{
+                'border-right': !(
+                  settings.google_translate && languageSelected !== 'it'
+                ),
+              }"
+              href="#"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >{{ languageSelected }}</a
+            >
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              style="min-width: unset"
+            >
+              <div v-for="lang in settings.languages">
                 <div v-if="lang !== languageSelected">
-                  <a href="#" class="dropdown-item" @click="changeLanguage(lang)"> {{ lang }} </a>
+                  <a
+                    href="#"
+                    class="dropdown-item"
+                    @click="changeLanguage(lang)"
+                  >
+                    {{ lang }}
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div v-if="settings.google_translate && languageSelected !== 'it' && uri !== 'create' && settings.languages.length > 1">
-          <a href="#" class="btn btn-info btn-block font-weight-bold mt-0 mr-1" @click="showTranslationModal"> {{ trans.translate }} </a>
+        <div
+          v-if="
+            settings.google_translate &&
+            languageSelected !== 'it' &&
+            uri !== 'create' &&
+            settings.languages.length > 1
+          "
+        >
+          <a
+            href="#"
+            class="btn btn-info btn-block font-weight-bold mt-0 mr-1"
+            @click="showTranslationModal"
+          >
+            {{ trans.translate }}
+          </a>
         </div>
       </template>
 
       <template slot="options">
         <div v-if="!creatingCategory" class="dropdown">
           <a
-              id="navbarDropdown"
-              class="nav-link pr-0"
-              href="#"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+            id="navbarDropdown"
+            class="nav-link pr-0"
+            href="#"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
           >
             <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="25"
-                class="icon-dots-horizontal"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="25"
+              class="icon-dots-horizontal"
             >
               <path
-                  class="fill-light-gray"
-                  fill-rule="evenodd"
-                  d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                class="fill-light-gray"
+                fill-rule="evenodd"
+                d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
               />
             </svg>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            <a href="#" class="dropdown-item text-danger" @click="showDeleteModal"> {{ trans.delete }} </a>
+          <div
+            class="dropdown-menu dropdown-menu-right"
+            aria-labelledby="dropdownMenuButton"
+          >
+            <a
+              href="#"
+              class="dropdown-item text-danger"
+              @click="showDeleteModal"
+            >
+              {{ trans.delete }}
+            </a>
           </div>
         </div>
       </template>
@@ -63,9 +99,10 @@
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
         <div v-if="isReady" class="my-3">
           <h3 class="mt-3">
-            <router-link :to="{ name: 'portfolio_categories' }" class="text-decoration-none text-muted">{{
-                trans.portfolio_categories
-              }}
+            <router-link
+              :to="{ name: 'portfolio_categories' }"
+              class="text-decoration-none text-muted"
+              >{{ trans.portfolio_categories }}
             </router-link>
             <span class="text-muted"> / </span>
             {{ title }}
@@ -83,15 +120,15 @@
                   {{ trans.name }}
                 </label>
                 <input
-                    v-model="category.name[languageSelected]"
-                    type="text"
-                    name="name"
-                    autofocus
-                    autocomplete="off"
-                    title="Name"
-                    class="form-control border-0"
-                    :placeholder="trans.give_your_portfolio_category_a_name"
-                    @keyup.enter="saveCategory"
+                  v-model="category.name[languageSelected]"
+                  type="text"
+                  name="name"
+                  autofocus
+                  autocomplete="off"
+                  title="Name"
+                  class="form-control border-0"
+                  :placeholder="trans.give_your_portfolio_category_a_name"
+                  @keyup.enter="saveCategory"
                 />
               </div>
 
@@ -100,17 +137,21 @@
                   {{ trans.slug }}
                 </label>
                 <input
-                    v-model="category.slug"
-                    type="text"
-                    name="slug"
-                    disabled
-                    autocomplete="off"
-                    title="Slug"
-                    class="form-control border-0"
-                    :class="invalidSlug.shouldShow ? 'is-invalid' : ''"
-                    :placeholder="trans.give_your_portfolio_category_a_name_slug"
+                  v-model="category.slug"
+                  type="text"
+                  name="slug"
+                  disabled
+                  autocomplete="off"
+                  title="Slug"
+                  class="form-control border-0"
+                  :class="invalidSlug.shouldShow ? 'is-invalid' : ''"
+                  :placeholder="trans.give_your_portfolio_category_a_name_slug"
                 />
-                <span v-if="invalidSlug.shouldShow" class="invalid-feedback" role="alert">
+                <span
+                  v-if="invalidSlug.shouldShow"
+                  class="invalid-feedback"
+                  role="alert"
+                >
                   <strong>{{ invalidSlug.error }}</strong>
                 </span>
               </div>
@@ -118,20 +159,20 @@
               <div class="form-group row mt-4 mb-2">
                 <div class="col-md px-0">
                   <a
-                      href="#"
-                      onclick="this.blur()"
-                      class="btn btn-success btn-block font-weight-bold mt-0"
-                      :class="shouldDisableButton ? 'disabled' : ''"
-                      aria-label="Save"
-                      @click.prevent="saveCategory"
+                    href="#"
+                    onclick="this.blur()"
+                    class="btn btn-success btn-block font-weight-bold mt-0"
+                    :class="shouldDisableButton ? 'disabled' : ''"
+                    aria-label="Save"
+                    @click.prevent="saveCategory"
                   >
                     {{ trans.save }}
                   </a>
                 </div>
                 <div class="col-md px-0">
                   <router-link
-                      :to="{ name: 'portfolio_categories' }"
-                      class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
+                    :to="{ name: 'portfolio_categories' }"
+                    class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                   >
                     {{ trans.cancel }}
                   </router-link>
@@ -141,26 +182,31 @@
           </div>
         </div>
 
-        <h2 v-if="portfolios.length > 0" class="mt-5">{{ trans.portfolios }}</h2>
+        <h2 v-if="portfolios.length > 0" class="mt-5">
+          {{ trans.portfolios }}
+        </h2>
 
         <div v-if="portfolios.length > 0" class="mt-3 card shadow-lg">
           <div class="card-body p-0">
-            <div :key="`${index}-${portfolio.id}`" v-for="(portfolio, index) in portfolios">
+            <div
+              :key="`${index}-${portfolio.id}`"
+              v-for="(portfolio, index) in portfolios"
+            >
               <router-link
-                  :to="{
-                    name: 'edit-portfolio',
-                    params: { id: portfolio.id },
-                  }"
-                  class="text-decoration-none"
+                :to="{
+                  name: 'edit-portfolio',
+                  params: { id: portfolio.id },
+                }"
+                class="text-decoration-none"
               >
                 <div
-                    v-hover="{ class: `hover-bg` }"
-                    class="d-flex p-3 align-items-center"
-                    :class="{
-                      'border-top': index !== 0,
-                      'rounded-top': index === 0,
-                      'rounded-bottom': index === portfolios.length - 1,
-                    }"
+                  v-hover="{ class: `hover-bg` }"
+                  class="d-flex p-3 align-items-center"
+                  :class="{
+                    'border-top': index !== 0,
+                    'rounded-top': index === 0,
+                    'rounded-bottom': index === portfolios.length - 1,
+                  }"
                 >
                   <div class="pl-2 col-md-6 col-sm-8 col-10">
                     <p class="mb-0 mt-2 lead font-weight-bold text-truncate">
@@ -168,9 +214,13 @@
                     </p>
                     <p class="text-secondary mb-2">
                       <span v-if="isPublished(portfolio.published_at)">
-                        <span class="d-none d-md-inline"> {{ portfolio.read_time }} ― </span>
+                        <span class="d-none d-md-inline">
+                          {{ portfolio.read_time }} ―
+                        </span>
                         {{ trans.published }}
-                        {{ moment(portfolio.published_at).format('MMM D, YYYY') }}
+                        {{
+                          moment(portfolio.published_at).format("MMM D, YYYY")
+                        }}
                       </span>
                       <span v-if="isDraft(portfolio.published_at)">
                         <span class="text-danger">{{ trans.draft }}</span>
@@ -185,24 +235,26 @@
                     <div class="d-none d-md-inline">
                       <span class="text-secondary mr-3">
                         {{ suffixedNumber(portfolio.views_count) }}
-                        {{ portfolio.views_count == 1 ? trans.view : trans.views }}
+                        {{
+                          portfolio.views_count == 1 ? trans.view : trans.views
+                        }}
                       </span>
                       <span class="mr-3">
                         {{ trans.created }}
-                        {{ moment(portfolio.created_at).format('MMM D, YYYY') }}
+                        {{ moment(portfolio.created_at).format("MMM D, YYYY") }}
                       </span>
                     </div>
 
                     <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="25"
-                        viewBox="0 0 24 24"
-                        class="icon-cheveron-right-circle"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      viewBox="0 0 24 24"
+                      class="icon-cheveron-right-circle"
                     >
-                      <circle cx="12" cy="12" r="10" style="fill: none"/>
+                      <circle cx="12" cy="12" r="10" style="fill: none" />
                       <path
-                          class="fill-light-gray"
-                          d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
+                        class="fill-light-gray"
+                        d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
                       />
                     </svg>
                   </div>
@@ -211,8 +263,8 @@
             </div>
 
             <infinite-loading spinner="spiral" @infinite="fetchPortfolios">
-              <span slot="no-more"/>
-              <div slot="no-results"/>
+              <span slot="no-more" />
+              <div slot="no-results" />
             </infinite-loading>
           </div>
         </div>
@@ -221,38 +273,38 @@
 
     <section v-if="isReady">
       <translation-modal
-          ref="translationModal"
-          :elem="category"
-          :language-selected="languageSelected"
-          @update="saveCategory"
+        ref="translationModal"
+        :elem="category"
+        :language-selected="languageSelected"
+        @update="saveCategory"
       />
     </section>
 
     <delete-modal
-        ref="deleteModal"
-        :header="trans.delete"
-        :message="trans.deleted_portfolio_category_are_gone_forever"
-        @delete="deleteCategory"
+      ref="deleteModal"
+      :header="trans.delete"
+      :message="trans.deleted_portfolio_category_are_gone_forever"
+      @delete="deleteCategory"
     />
   </section>
 </template>
 
 <script>
-import {mapGetters, mapState} from 'vuex';
-import $ from 'jquery';
-import DeleteModal from '../components/modals/DeleteModal';
+import { mapGetters, mapState } from "vuex";
+import $ from "jquery";
+import DeleteModal from "../components/modals/DeleteModal";
 import TranslationModal from "../components/modals/TranslationModal";
-import Hover from '../directives/Hover';
-import InfiniteLoading from 'vue-infinite-loading';
-import NProgress from 'nprogress';
-import PageHeader from '../components/PageHeader';
-import isEmpty from 'lodash/isEmpty';
-import status from '../mixins/status';
-import strings from '../mixins/strings';
+import Hover from "../directives/Hover";
+import InfiniteLoading from "vue-infinite-loading";
+import NProgress from "nprogress";
+import PageHeader from "../components/PageHeader";
+import isEmpty from "lodash/isEmpty";
+import status from "../mixins/status";
+import strings from "../mixins/strings";
 import get from "lodash/get";
 
 export default {
-  name: 'edit-portfolio_category',
+  name: "edit-portfolio_category",
 
   components: {
     TranslationModal,
@@ -269,7 +321,7 @@ export default {
 
   data() {
     return {
-      uri: this.$route.params.id || 'create',
+      uri: this.$route.params.id || "create",
       category: {
         id: null,
         name: {
@@ -278,24 +330,24 @@ export default {
           es: null,
           fr: null,
           de: null,
-        }
+        },
       },
       page: 1,
       errors: [],
       portfolios: [],
       isReady: false,
-      languageSelected: 'it',
+      languageSelected: "it",
     };
   },
 
   computed: {
-    ...mapState(['settings']),
+    ...mapState(["settings"]),
     ...mapGetters({
-      trans: 'settings/trans',
+      trans: "settings/trans",
     }),
 
     creatingCategory() {
-      return this.$route.name === 'create-portfolio_category';
+      return this.$route.name === "create-portfolio_category";
     },
 
     shouldDisableButton() {
@@ -326,12 +378,12 @@ export default {
   },
 
   watch: {
-    'category.name.it'(val) {
-      this.category.slug = !isEmpty(val) ? this.slugify(val) : '';
+    "category.name.it"(val) {
+      this.category.slug = !isEmpty(val) ? this.slugify(val) : "";
     },
 
     async $route(to) {
-      if (this.uri === 'create' && to.params.id === this.category.id) {
+      if (this.uri === "create" && to.params.id === this.category.id) {
         this.uri = to.params.id;
       }
 
@@ -356,82 +408,85 @@ export default {
   methods: {
     fetchCategory() {
       return this.request()
-          .get(`/api/portfolio_categories/${this.uri}`)
-          .then(({data}) => {
-            this.category.id = data.id;
-            this.category.name.it = get(data.name, 'it', '');
-            this.category.name.en = get(data.name, 'en', '');
-            this.category.name.es = get(data.name, 'es', '');
-            this.category.name.fr = get(data.name, 'fr', '');
-            this.category.name.de = get(data.name, 'de', '');
+        .get(`/api/portfolio_categories/${this.uri}`)
+        .then(({ data }) => {
+          this.category.id = data.id;
+          this.category.name.it = get(data.name, "it", "");
+          this.category.name.en = get(data.name, "en", "");
+          this.category.name.es = get(data.name, "es", "");
+          this.category.name.fr = get(data.name, "fr", "");
+          this.category.name.de = get(data.name, "de", "");
 
-            NProgress.inc();
-          })
-          .catch(() => {
-            this.$router.push({name: 'portfolio_categories'});
-          });
+          NProgress.inc();
+        })
+        .catch(() => {
+          this.$router.push({ name: "portfolio_categories" });
+        });
     },
 
     fetchPortfolios($state) {
       return this.request()
-          .get(`/api/portfolio_categories/${this.uri}/portfolios`, {
-            params: {
-              page: this.page,
-            },
-          })
-          .then(({data}) => {
-            if (!isEmpty(data) && !isEmpty(data.data)) {
-              this.page += 1;
-              this.portfolios.push(...data.data);
-              $state.loaded();
-            } else {
-              $state.complete();
-            }
+        .get(`/api/portfolio_categories/${this.uri}/portfolios`, {
+          params: {
+            page: this.page,
+          },
+        })
+        .then(({ data }) => {
+          if (!isEmpty(data) && !isEmpty(data.data)) {
+            this.page += 1;
+            this.portfolios.push(...data.data);
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
 
-            if (isEmpty($state)) {
-              NProgress.inc();
-            }
-          })
-          .catch(() => {
-            NProgress.done();
-          });
+          if (isEmpty($state)) {
+            NProgress.inc();
+          }
+        })
+        .catch(() => {
+          NProgress.done();
+        });
     },
 
     async saveCategory() {
       this.errors = [];
 
       await this.request()
-          .post(`/api/portfolio_categories/${this.category.id}`, this.category)
-          .then(({data}) => {
-            this.category = data;
-            this.$store.dispatch('search/buildIndex', true);
-            this.$toasted.show(this.trans.saved, {
-              className: 'bg-success',
-            });
-          })
-          .catch((error) => {
-            this.errors = error.response.data.errors;
+        .post(`/api/portfolio_categories/${this.category.id}`, this.category)
+        .then(({ data }) => {
+          this.category = data;
+          this.$store.dispatch("search/buildIndex", true);
+          this.$toasted.show(this.trans.saved, {
+            className: "bg-success",
           });
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+        });
 
       if (isEmpty(this.errors) && this.creatingCategory) {
-        await this.$router.push({name: 'edit-portfolio_category', params: {id: this.category.id}});
+        await this.$router.push({
+          name: "edit-portfolio_category",
+          params: { id: this.category.id },
+        });
         NProgress.done();
       }
     },
 
     async deleteCategory() {
       await this.request()
-          .delete(`/api/portfolio_categories/${this.category.id}`)
-          .then(() => {
-            this.$store.dispatch('search/buildIndex', true);
-            this.$toasted.show(this.trans.success, {
-              className: 'bg-success',
-            });
+        .delete(`/api/portfolio_categories/${this.category.id}`)
+        .then(() => {
+          this.$store.dispatch("search/buildIndex", true);
+          this.$toasted.show(this.trans.success, {
+            className: "bg-success",
           });
+        });
 
-      $(this.$refs.deleteModal.$el).modal('hide');
+      $(this.$refs.deleteModal.$el).modal("hide");
 
-      await this.$router.push({name: 'portfolio_categories'});
+      await this.$router.push({ name: "portfolio_categories" });
     },
 
     changeLanguage(lang) {
@@ -439,11 +494,11 @@ export default {
     },
 
     showTranslationModal() {
-      $(this.$refs.translationModal.$el).modal('show');
+      $(this.$refs.translationModal.$el).modal("show");
     },
 
     showDeleteModal() {
-      $(this.$refs.deleteModal.$el).modal('show');
+      $(this.$refs.deleteModal.$el).modal("show");
     },
   },
 };

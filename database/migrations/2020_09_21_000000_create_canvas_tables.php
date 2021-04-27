@@ -134,6 +134,25 @@ class CreateCanvasTables extends Migration
             $table->uuid('category_id');
             $table->unique(['portfolio_id', 'category_id']);
         });
+
+        Schema::create('canvas_portfolios_views', function (Blueprint $table) {
+            $table->increments('id');
+            $table->uuid('portfolio_id')->index();
+            $table->string('ip')->nullable();
+            $table->text('agent')->nullable();
+            $table->string('referer')->nullable();
+            $table->timestamps();
+            $table->index('created_at');
+        });
+
+        Schema::create('canvas_portfolios_visits', function (Blueprint $table) {
+            $table->increments('id');
+            $table->uuid('portfolio_id');
+            $table->string('ip')->nullable();
+            $table->text('agent')->nullable();
+            $table->string('referer')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -154,5 +173,7 @@ class CreateCanvasTables extends Migration
         Schema::dropIfExists('canvas_portfolios');
         Schema::dropIfExists('canvas_categories');
         Schema::dropIfExists('canvas_portfolios_categories');
+        Schema::dropIfExists('canvas_portfolios_views');
+        Schema::dropIfExists('canvas_portfolios_visits');
     }
 }

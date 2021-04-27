@@ -8,7 +8,10 @@ use Canvas\Console\MigrateCommand;
 use Canvas\Console\PublishCommand;
 use Canvas\Console\UiCommand;
 use Canvas\Console\UserCommand;
+use Canvas\Events\PortfolioViewed;
 use Canvas\Events\PostViewed;
+use Canvas\Listeners\CapturePortfolioView;
+use Canvas\Listeners\CapturePortfolioVisit;
 use Canvas\Listeners\CaptureView;
 use Canvas\Listeners\CaptureVisit;
 use Canvas\Models\User;
@@ -61,6 +64,11 @@ class CanvasServiceProvider extends ServiceProvider
             PostViewed::class => [
                 CaptureView::class,
                 CaptureVisit::class,
+            ],
+
+            PortfolioViewed::class => [
+                CapturePortfolioView::class,
+                CapturePortfolioVisit::class
             ],
         ];
 

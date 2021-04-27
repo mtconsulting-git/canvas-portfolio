@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -112,6 +113,27 @@ class Portfolio extends Model
         return $this->belongsTo(User::class);
     }
 
+
+    /**
+     * Get the views relationship.
+     *
+     * @return HasMany
+     */
+    public function views(): HasMany
+    {
+        return $this->hasMany(PortfolioView::class);
+    }
+
+    /**
+     * Get the visits relationship.
+     *
+     * @return HasMany
+     */
+    public function visits(): HasMany
+    {
+        return $this->hasMany(PortfolioVisit::class);
+    }
+
     /**
      * Check to see if the post is published.
      *
@@ -130,7 +152,8 @@ class Portfolio extends Model
     public function getReadTimeAttribute(): string
     {
         // Only count words in our estimation
-        $words = str_word_count(strip_tags($this->body["it"]));
+        if (!empty($this->body['it'])) $words = str_word_count(strip_tags($this->body["it"]));
+        else $words = 0;
 
         // Divide by the average number of words per minute
         $minutes = ceil($words / 250);

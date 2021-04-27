@@ -28,7 +28,7 @@ class MigrateCommand extends Command
     public function handle()
     {
         $this->callSilent('migrate', [
-            '--path' => 'vendor/austintoddj/canvas/database/migrations',
+            '--path' => 'vendor/mtconsultingroup/canvas-portfolio/database/migrations',
             '--force' => $this->option('force') ?? true,
         ]);
 

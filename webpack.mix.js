@@ -1,5 +1,6 @@
-const mix = require('laravel-mix');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const mix = require("laravel-mix");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 /*
  |--------------------------------------------------------------------------
@@ -19,19 +20,20 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 // });
 
 mix.options({
-    uglify: {
-        uglifyOptions: {
-            compress: {
-                drop_console: true,
-            },
-        },
+  uglify: {
+    uglifyOptions: {
+      compress: {
+        drop_console: true,
+      },
     },
+  },
 });
 
-mix.setPublicPath('public')
-    .setResourceRoot('../')
-    .js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/app.scss', 'public/css')
-    .version()
-    .sourceMaps();
+mix
+  .setPublicPath("public")
+  .setResourceRoot("../")
+  .js("resources/js/app.js", "public/js")
+  .vue()
+  .sass("resources/sass/app.scss", "public/css")
+  .version()
+  .sourceMaps();

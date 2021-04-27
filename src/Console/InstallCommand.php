@@ -22,7 +22,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Install the Canvas components and resources';
+    protected $description = 'Install the Canvas components, db tables and resources';
 
     /**
      * Create a new console command instance.
@@ -48,13 +48,14 @@ class InstallCommand extends Command
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-provider']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-assets']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-config']);
+        $this->call('migrate');
         $this->callSilent('canvas:migrate');
 
         if (! app()->runningUnitTests()) {
             $this->installCanvasServiceProvider();
         }
 
-        $this->createDefaultUser($email = 'email@example.com', $password = 'password');
+        $this->createDefaultUser($email = 'info@email.it', $password = 'segreta');
 
         $this->info('Installation complete.');
         $this->table(['Default Email', 'Default Password'], [[$email, $password]]);
