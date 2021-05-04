@@ -440,7 +440,7 @@ export default {
   methods: {
     fetchStats() {
       return this.request()
-        .get(`/api/stats/${this.id}`)
+        .get(`/api/blog/stats/${this.id}`)
         .then(({ data }) => {
           this.data = data;
           NProgress.inc();

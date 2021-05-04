@@ -1,6 +1,6 @@
 <template>
   <div style="height: 300px">
-    <canvas id="stats" />
+    <canvas :id="this.idName" />
   </div>
 </template>
 
@@ -22,6 +22,11 @@ export default {
       type: Object,
       required: true,
     },
+
+    idName: {
+      type: String,
+      required: true
+    }
   },
 
   computed: {

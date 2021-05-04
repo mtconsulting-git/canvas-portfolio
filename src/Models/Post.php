@@ -167,7 +167,8 @@ class Post extends Model
     public function getReadTimeAttribute(): string
     {
         // Only count words in our estimation
-        $words = str_word_count(strip_tags($this->body["it"]));
+        if (!$this->body) $words = 0;
+        else $words = str_word_count(strip_tags($this->body["it"]));
 
         // Divide by the average number of words per minute
         $minutes = ceil($words / 250);

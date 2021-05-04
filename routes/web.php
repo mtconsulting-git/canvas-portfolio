@@ -6,7 +6,7 @@ use Canvas\Http\Controllers\Auth\PasswordResetLinkController;
 use Canvas\Http\Controllers\HomeController;
 use Canvas\Http\Controllers\PostController;
 use Canvas\Http\Controllers\SearchController;
-use Canvas\Http\Controllers\StatsController;
+use Canvas\Http\Controllers\BlogStatsController;
 use Canvas\Http\Controllers\TagController;
 use Canvas\Http\Controllers\TopicController;
 use Canvas\Http\Controllers\UploadsController;
@@ -74,12 +74,12 @@ Route::middleware([AuthenticatedMiddleware::class])->group(function () {
                 Route::post('{id}', [TopicController::class, 'store']);
                 Route::delete('{id}', [TopicController::class, 'destroy']);
             });
-        }
 
-        Route::prefix('stats')->group(function () {
-            Route::get('/', [StatsController::class, 'index']);
-            Route::get('{id}', [StatsController::class, 'show']);
-        });
+            Route::prefix('blog/stats')->group(function () {
+                Route::get('/', [BlogStatsController::class, 'index']);
+                Route::get('{id}', [BlogStatsController::class, 'show']);
+            });
+        }
 
         if (config('canvas.portfolio.enabled')) {
             Route::prefix('portfolios')->group(function () {
@@ -97,6 +97,11 @@ Route::middleware([AuthenticatedMiddleware::class])->group(function () {
                 Route::get('{id}/portfolios', [PortfolioCategoryController::class, 'showPortfolios']);
                 Route::post('{id}', [PortfolioCategoryController::class, 'store']);
                 Route::delete('{id}', [PortfolioCategoryController::class, 'destroy']);
+            });
+
+            Route::prefix('portfolio/stats')->group(function () {
+                Route::get('/', [BlogStatsController::class, 'index']);
+                Route::get('{id}', [BlogStatsController::class, 'show']);
             });
         }
 

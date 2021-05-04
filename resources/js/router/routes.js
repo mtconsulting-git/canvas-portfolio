@@ -14,6 +14,7 @@ import PortfolioList from "../views/PortfolioList";
 import PortfolioCategoryList from "../views/PortfolioCategoryList";
 import EditPortfolio from "../views/EditPortfolio";
 import EditCategory from "../views/EditCategory";
+import PortfolioStats from "../views/PortfolioStats";
 
 let isAdmin = settings.state.user.role === 3;
 let blogEnabled = settings.state.blogEnabled;
@@ -103,11 +104,19 @@ export default [
     component: AllStats,
   },
   {
-    path: "/stats/:id",
+    path: "/blog/stats/:id",
     name: "post-stats",
     component: PostStats,
     beforeEnter: (to, from, next) => {
       blogEnabled ? next() : next({ name: "home" });
+    },
+  },
+  {
+    path: "/portfolios/stats/:id",
+    name: "portfolios-stats",
+    component: PortfolioStats,
+    beforeEnter: (to, from, next) => {
+      portfolioEnabled ? next() : next({ name: "home" });
     },
   },
   {
