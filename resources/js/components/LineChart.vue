@@ -153,7 +153,7 @@ export default {
 
   methods: {
     createChart() {
-      new Chart(document.getElementById("stats"), {
+      new Chart(document.getElementById(this.idName), {
         type: "line",
         data: this.chartData,
         options: this.chartOptions,
