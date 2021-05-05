@@ -1,25 +1,26 @@
+Route::prefix('leet')->group(function () {
+    if (config('canvas.blog.enabled')) {
+        Route::get('posts', [\App\Http\Controllers\CanvasUiController::class, 'getPosts']);
+        Route::get('posts/{slug}', [\App\Http\Controllers\CanvasUiController::class, 'showPost'])->middleware('Canvas\Http\Middleware\Session');
 
-if (config('canvas.blog.enabled')) {
-    Route::get('posts', [\App\Http\Controllers\CanvasUiController::class, 'getPosts']);
-    Route::get('posts/{slug}', [\App\Http\Controllers\CanvasUiController::class, 'showPost'])->middleware('Canvas\Http\Middleware\Session');
+        Route::get('tags', [\App\Http\Controllers\CanvasUiController::class, 'getTags']);
+        Route::get('tags/{slug}', [\App\Http\Controllers\CanvasUiController::class, 'showTag']);
+        Route::get('tags/{slug}/posts', [\App\Http\Controllers\CanvasUiController::class, 'getPostsForTag']);
 
-    Route::get('tags', [\App\Http\Controllers\CanvasUiController::class, 'getTags']);
-    Route::get('tags/{slug}', [\App\Http\Controllers\CanvasUiController::class, 'showTag']);
-    Route::get('tags/{slug}/posts', [\App\Http\Controllers\CanvasUiController::class, 'getPostsForTag']);
+        Route::get('topics', [\App\Http\Controllers\CanvasUiController::class, 'getTopics']);
+        Route::get('topics/{slug}', [\App\Http\Controllers\CanvasUiController::class, 'showTopic']);
+        Route::get('topics/{slug}/posts', [\App\Http\Controllers\CanvasUiController::class, 'getPostsForTopic']);
+    }
 
-    Route::get('topics', [\App\Http\Controllers\CanvasUiController::class, 'getTopics']);
-    Route::get('topics/{slug}', [\App\Http\Controllers\CanvasUiController::class, 'showTopic']);
-    Route::get('topics/{slug}/posts', [\App\Http\Controllers\CanvasUiController::class, 'getPostsForTopic']);
-}
+    if (config('canvas.portfolio.enabled')) {
+        Route::get('portfolios', [\App\Http\Controllers\CanvasUiController::class, 'getPortfolios']);
+        Route::get('portfolios/{slug}', [\App\Http\Controllers\CanvasUiController::class, 'showPortfolio'])->middleware('Canvas\Http\Middleware\Session');
 
-if (config('canvas.portfolio.enabled')) {
-    Route::get('portfolios', [\App\Http\Controllers\CanvasUiController::class, 'getPortfolios']);
-    Route::get('portfolios/{slug}', [\App\Http\Controllers\CanvasUiController::class, 'showPortfolio'])->middleware('Canvas\Http\Middleware\Session');
+        Route::get('categories', [\App\Http\Controllers\CanvasUiController::class, 'getCategories']);
+        Route::get('categories/{slug}', [\App\Http\Controllers\CanvasUiController::class, 'showCategory']);
+        Route::get('categories/{slug}/portfolios', [\App\Http\Controllers\CanvasUiController::class, 'getPortfoliosForCategory']);
+    }
 
-    Route::get('categories', [\App\Http\Controllers\CanvasUiController::class, 'getCategories']);
-    Route::get('categories/{slug}', [\App\Http\Controllers\CanvasUiController::class, 'showCategory']);
-    Route::get('categories/{slug}/portfolios', [\App\Http\Controllers\CanvasUiController::class, 'getPortfoliosForCategory']);
-}
-
-Route::get('users/{id}', [\App\Http\Controllers\CanvasUiController::class, 'showUser']);
-Route::get('users/{id}/posts', [\App\Http\Controllers\CanvasUiController::class, 'getPostsForUser']);
+    Route::get('users/{id}', [\App\Http\Controllers\CanvasUiController::class, 'showUser']);
+    Route::get('users/{id}/posts', [\App\Http\Controllers\CanvasUiController::class, 'getPostsForUser']);
+});

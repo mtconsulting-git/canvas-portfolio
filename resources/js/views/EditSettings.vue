@@ -10,36 +10,6 @@
 
         <div v-if="isReady" class="mt-5 card shadow-lg">
           <div class="card-body p-0">
-            <div class="d-flex rounded-top p-3 align-items-center">
-              <div class="mr-auto py-1">
-                <p class="mb-1 lead font-weight-bold text-truncate">
-                  {{ trans.weekly_digest }}
-                </p>
-                <p class="mb-1 d-none d-lg-block text-secondary">
-                  {{ trans.toggle_digest }}
-                </p>
-              </div>
-              <div class="ml-auto pl-3">
-                <div class="align-middle">
-                  <div class="form-group my-auto">
-                    <span class="switch switch-sm">
-                      <input
-                        v-model="digest"
-                        id="digest"
-                        type="checkbox"
-                        class="switch"
-                        :checked="settings.user.digest"
-                        @change="toggleDigest"
-                      />
-                      <label for="digest" class="mb-0 sr-only">
-                        {{ trans.weekly_digest }}
-                      </label>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div class="d-flex border-top p-3 align-items-center">
               <div class="mr-auto py-1">
                 <p class="mb-1 lead font-weight-bold text-truncate">
@@ -65,40 +35,6 @@
                         {{ trans.dark_mode }}
                       </label>
                     </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="d-flex border-top p-3 align-items-center">
-              <div class="mr-auto py-1">
-                <p class="mb-1 lead font-weight-bold text-truncate">
-                  {{ trans.locale }}
-                </p>
-                <p class="mb-1 d-none d-lg-block text-secondary">
-                  {{ trans.select_your_language_or_region }}
-                </p>
-              </div>
-              <div class="ml-auto pl-3">
-                <div class="align-middle">
-                  <div class="form-group row mt-3">
-                    <div class="col-12">
-                      <select
-                        v-model="locale"
-                        class="custom-select border-0"
-                        name="locale"
-                        @change="selectLocale"
-                      >
-                        <option
-                          :key="code"
-                          v-for="code in settings.languageCodes"
-                          :value="code"
-                          :selected="settings.user.locale === code"
-                        >
-                          {{ getLocaleDisplayName(code) }}
-                        </option>
-                      </select>
-                    </div>
                   </div>
                 </div>
               </div>

@@ -120,7 +120,7 @@ return [
     'title' => 'Titolo',
     'to' => 'a',
     'to_update_run' => 'Per aggiornare, esegui:',
-    'toggle_dark_mode' => 'Utilizza l\'aspett oscuro per Canvas.',
+    'toggle_dark_mode' => 'Utilizza l\'aspetto oscuro per Leet.',
     'toggle_digest' => 'Attiva per ricevere un riepilogo settimanale dei contenuti pubblicati.',
     'topic' => 'Argomento',
     'topics' => 'Argomenti',

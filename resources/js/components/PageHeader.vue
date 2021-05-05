@@ -6,7 +6,7 @@
           :to="{ name: 'home' }"
           class="navbar-brand hover font-weight-bolder font-serif mr-3"
         >
-          Leet (beta 0.3)
+          Leet (Beta v1.1.5.2)
         </router-link>
 
         <slot name="status" />

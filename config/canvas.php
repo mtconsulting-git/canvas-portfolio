@@ -56,7 +56,7 @@ return [
 
     'storage_disk' => env('CANVAS_STORAGE_DISK', 'local'),
 
-    'storage_path' => env('CANVAS_STORAGE_PATH', 'public/canvas'),
+    'storage_path' => env('CANVAS_STORAGE_PATH', 'public/leet'),
 
     'upload_filesize' => env('CANVAS_UPLOAD_FILESIZE', 3145728),
 
@@ -149,7 +149,7 @@ return [
     */
 
     'google_translate' => [
-        'access_key' => env('CANVAS_GOOGLE_TRANSLATE_ACCESS_KEY'),
+        'access_key' => env('CANVAS_GOOGLE_TRANSLATE_ACCESS_KEY', ''),
     ]
 
 ];
