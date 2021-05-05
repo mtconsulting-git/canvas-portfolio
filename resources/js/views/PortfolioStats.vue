@@ -442,7 +442,7 @@ export default {
       return this.request()
         .get(`/api/portfolio/stats/${this.id}`)
         .then(({ data }) => {
-          console.log(data)
+          console.log(data);
           this.data = data;
           NProgress.inc();
         })

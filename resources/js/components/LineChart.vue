@@ -25,8 +25,8 @@ export default {
 
     idName: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
 
   computed: {

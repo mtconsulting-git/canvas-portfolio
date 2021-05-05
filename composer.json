@@ -20,7 +20,7 @@
         "php": "^7.3|^8.0",
         "ext-json": "*",
         "google/cloud": "^0.152",
-        "laravel/framework": "^6.0|^7.0|^8.0"
+        "laravel/framework": ">=8.0"
     },
     "require-dev": {
         "laravel/legacy-factories": "^1.0",

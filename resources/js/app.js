@@ -9,7 +9,7 @@ require("bootstrap");
 
 window.Popper = require("popper.js").default;
 
-moment.locale('it');
+moment.locale("it");
 Vue.prototype.moment = moment;
 
 Vue.use(Toasted, {
