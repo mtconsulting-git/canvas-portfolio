@@ -12,6 +12,7 @@ use Canvas\Http\Controllers\TopicController;
 use Canvas\Http\Controllers\UploadsController;
 use Canvas\Http\Controllers\UserController;
 use Canvas\Http\Controllers\PortfolioController;
+use Canvas\Http\Controllers\PortfolioStatsController;
 use Canvas\Http\Controllers\PortfolioCategoryController;
 use Canvas\Http\Controllers\TranslationController;
 use Canvas\Http\Middleware\AdminMiddleware;
@@ -100,8 +101,8 @@ Route::middleware([AuthenticatedMiddleware::class])->group(function () {
             });
 
             Route::prefix('portfolio/stats')->group(function () {
-                Route::get('/', [BlogStatsController::class, 'index']);
-                Route::get('{id}', [BlogStatsController::class, 'show']);
+                Route::get('/', [PortfolioStatsController::class, 'index']);
+                Route::get('{id}', [PortfolioStatsController::class, 'show']);
             });
         }
 

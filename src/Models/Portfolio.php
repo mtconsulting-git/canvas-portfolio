@@ -2,12 +2,14 @@
 
 namespace Canvas\Models;
 
+use Canvas\Canvas;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 
 class Portfolio extends Model
@@ -203,4 +205,85 @@ class Portfolio extends Model
             $post->portfolio_category()->detach();
         });
     }
+
+
+    /**
+     * Get the 10 most popular reading times rounded to the nearest 30 minutes.
+     *
+     * @return array
+     */
+    public function getPopularReadingTimesAttribute(): array
+    {
+        // Get the views associated with the post
+        $data = $this->views;
+
+        // Filter the view data to only include hours:minutes
+        $collection = collect();
+        $data->each(function ($item, $key) use ($collection) {
+            $collection->push($item->created_at->minute(0)->format('H:i'));
+        });
+
+        // Count the unique values and assign to their respective keys
+        $filtered = array_count_values($collection->toArray());
+
+        $popularReadingTimes = collect();
+        foreach ($filtered as $key => $value) {
+            // Use each given time to create a 60 min range
+            $start = Date::createFromTimeString($key);
+            $end = $start->copy()->addMinutes(60);
+
+            // Find the percentage based on the value
+            $percentage = number_format($value / $data->count() * 100, 2);
+
+            // Get a human-readable hour range and floating percentage
+            $popularReadingTimes->put(
+                sprintf('%s - %s', $start->format('g:i A'), $end->format('g:i A')),
+                $percentage
+            );
+        }
+
+        // Cast the collection to an array
+        $array = $popularReadingTimes->toArray();
+
+        // Only return the top 5 reading times and percentages
+        $sliced = array_slice($array, 0, 5, true);
+
+        // Sort the array in a descending order
+        arsort($sliced);
+
+        return $sliced;
+    }
+
+    /**
+     * Get the top referring websites for a post.
+     *
+     * @return array
+     */
+    public function getTopReferersAttribute(): array
+    {
+        // Get the views associated with the post
+        $data = $this->views;
+
+        // Filter the view data to only include referrers
+        $collection = collect();
+        $data->each(function ($item, $key) use ($collection) {
+            if (empty(Canvas::trimUrl($item->referer))) {
+                $collection->push(trans('canvas::app.other', [], $this->user->locale));
+            } else {
+                $collection->push(Canvas::trimUrl($item->referer));
+            }
+        });
+
+        // Count the unique values and assign to their respective keys
+        $array = array_count_values($collection->toArray());
+
+        // Only return the top N referrers with their view count
+        $sliced = array_slice($array, 0, 10, true);
+
+        // Sort the array in a descending order
+        arsort($sliced);
+
+        return $sliced;
+    }
+
 }

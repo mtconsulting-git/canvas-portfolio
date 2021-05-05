@@ -33,6 +33,7 @@ class PortfolioController extends Controller
                          return $query->draft();
                      })
                      ->latest()
+                     ->withCount('views')
                      ->paginate();
 
         $draftCount = Portfolio::query()

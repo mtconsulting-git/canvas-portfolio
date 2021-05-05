@@ -1,7 +1,7 @@
 <template>
   <section>
     <page-header>
-      <template slot="options" v-if="isReady && canEditPost">
+      <template slot="options" v-if="isReady && canEditPortfolio">
         <div class="dropdown">
           <a
             class="nav-link pr-0"
@@ -42,10 +42,10 @@
     <main v-if="isReady" class="py-4">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
         <div class="my-3">
-          <h3 class="mt-3">{{ data.post.title.it }}</h3>
+          <h3 class="mt-3">{{ data.portfolio.title.it }}</h3>
           <p class="mt-2 text-secondary">
             {{ trans.published }}
-            {{ moment(data.post.published_at).fromNow() }}
+            {{ moment(data.portfolio.published_at).fromNow() }}
           </p>
         </div>
 
@@ -383,7 +383,7 @@ import Tooltip from "../directives/Tooltip";
 import strings from "../mixins/strings";
 
 export default {
-  name: "post-stats",
+  name: "portfolio-stats",
 
   components: {
     LineChart,
@@ -410,8 +410,8 @@ export default {
       trans: "settings/trans",
     }),
 
-    canEditPost() {
-      return this.settings.user.id === this.data.post.user_id;
+    canEditPortfolio() {
+      return this.settings.user.id === this.data.portfolio.user_id;
     },
 
     viewsAreTrendingUp() {
@@ -440,8 +440,9 @@ export default {
   methods: {
     fetchStats() {
       return this.request()
-        .get(`/api/blog/stats/${this.id}`)
+        .get(`/api/portfolio/stats/${this.id}`)
         .then(({ data }) => {
+          console.log(data)
           this.data = data;
           NProgress.inc();
         })

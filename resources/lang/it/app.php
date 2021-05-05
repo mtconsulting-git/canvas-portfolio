@@ -101,6 +101,7 @@ return [
     'sign_out' => 'Esci',
     'slug' => 'Slug',
     'stats' => 'Statistiche blog',
+    'stats_header' => 'Statistiche',
     'stats_portfolios' => 'Statistiche portfolio',
     'stats_are_made_available' => 'Le statistiche saranno visibili alla pubblicazione di almeno un articolo!',
     'stats_are_made_available_portfolios' => 'Le statistiche saranno visibili alla pubblicazione di almeno un portfolio!',

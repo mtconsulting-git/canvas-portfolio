@@ -449,7 +449,6 @@ export default {
             NProgress.done();
           });
     },
-
     fetchPosts($state) {
       return this.request()
         .get("/api/posts", {
@@ -461,7 +460,7 @@ export default {
         .then(({ data }) => {
           if (!isEmpty(data) && !isEmpty(data.posts.data)) {
             this.page += 1;
-            this.posts.push(...data.posts.data);
+            this.posts.push(...data.posts.data)
 
             $state.loaded();
           } else {

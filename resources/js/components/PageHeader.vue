@@ -82,7 +82,7 @@
             </div>
 
             <router-link :to="{ name: 'stats' }" class="dropdown-item">
-              <span>{{ trans.stats }}</span>
+              <span>{{ trans.stats_header }}</span>
             </router-link>
 
             <div class="dropdown-divider" />
