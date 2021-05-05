@@ -16,7 +16,7 @@ return [
     'canonical_link_placeholder' => 'URL canonico della fonte originale',
     'caption' => 'Didascalia',
     'choose_a_username' => 'Scegli il nome utente...',
-    'click_to_see_insights' => 'Clicca su di un post per vedere in dettaglio le statistiche.',
+    'click_to_see_insights' => 'Clicca su un post per vedere in dettaglio le statistiche.',
     'contributor' => 'Collaboratore',
     'convert_to_draft' => 'Converti in bozza',
     'created' => 'Creato',
