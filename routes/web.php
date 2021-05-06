@@ -138,9 +138,4 @@ Route::middleware([AuthenticatedMiddleware::class])->group(function () {
             return response()->json([], 404);
         });
     });
-
-    // Catch-all route...
-    Route::get('/{view?}', [HomeController::class, 'index'])
-         ->where('view', '(.*)')
-         ->name('canvas');
 });

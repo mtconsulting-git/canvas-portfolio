@@ -1,0 +1,6 @@
+Route::middleware([\Canvas\Http\Middleware\AuthenticatedMiddleware\AuthenticatedMiddleware::class])->group(function () {
+    // Catch-all route...
+    Route::get('/{view?}', [HomeController::class, 'index'])
+         ->where('view', '(.*)')
+         ->name('canvas');
+});

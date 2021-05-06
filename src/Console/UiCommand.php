@@ -54,6 +54,12 @@ class UiCommand extends Command
             file_get_contents(dirname(__DIR__, 2).'/resources/stubs/routes/api.stub'),
             FILE_APPEND
         );
+
+        file_put_contents(
+            base_path('routes/web.php'),
+            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/routes/web.stub'),
+            FILE_APPEND
+        );
     }
 
 }
