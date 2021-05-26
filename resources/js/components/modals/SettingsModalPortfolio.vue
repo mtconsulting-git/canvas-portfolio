@@ -187,6 +187,25 @@
               />
             </div>
           </div>
+          <div v-if="languageSelected === 'it'" class="form-group row">
+            <div class="col-12">
+              <label
+                for="company"
+                class="font-weight-bold text-uppercase text-muted small"
+              >
+                {{ trans.company_url }}
+              </label>
+              <input
+                v-model="portfolio.info.company_url"
+                id="company-url"
+                type="text"
+                class="form-control border-0"
+                :title="trans.company_url"
+                :placeholder="trans.company_url_placeholder"
+                @input="update"
+              />
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button

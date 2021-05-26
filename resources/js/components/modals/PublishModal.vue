@@ -31,7 +31,7 @@
           <p class="text-secondary text-center text-lg-left">
             {{ trans.post_scheduling_format }}
             <span class="font-weight-bold">{{ settings.timezone }}</span>
-            {{ trans.timezone }}. (m/d/y h:m)
+            {{ trans.timezone }}. (d/m/y h:m)
           </p>
 
           <div class="row">
@@ -39,22 +39,6 @@
               class="col-sm-6 col-12 pb-sm-0 pb-3 pr-sm-0 d-flex justify-content-center justify-content-sm-start"
             >
               <div class="d-flex align-items-center">
-                <select
-                  v-model="components.month"
-                  class="w-auto custom-select custom-select-sm border-0"
-                >
-                  <option
-                    v-bind:key="value"
-                    v-for="value in Array.from({ length: 12 }, (_, i) =>
-                      String(i + 1).padStart(2, '0')
-                    )"
-                    :value="value"
-                  >
-                    {{ value }}
-                  </option>
-                </select>
-
-                <span class="px-1">/</span>
                 <select
                   v-model="components.day"
                   class="w-auto custom-select custom-select-sm border-0"
@@ -71,6 +55,24 @@
                 </select>
 
                 <span class="px-1">/</span>
+
+                <select
+                  v-model="components.month"
+                  class="w-auto custom-select custom-select-sm border-0"
+                >
+                  <option
+                    v-bind:key="value"
+                    v-for="value in Array.from({ length: 12 }, (_, i) =>
+                      String(i + 1).padStart(2, '0')
+                    )"
+                    :value="value"
+                  >
+                    {{ value }}
+                  </option>
+                </select>
+
+                <span class="px-1">/</span>
+
                 <select
                   v-model="components.year"
                   class="w-auto custom-select custom-select-sm border-0"

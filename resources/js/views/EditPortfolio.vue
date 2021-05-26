@@ -100,10 +100,6 @@
           </a>
 
           <div class="dropdown-menu dropdown-menu-right">
-            <div
-              v-if="isPublished(portfolio.published_at)"
-              class="dropdown-divider"
-            />
             <a
               v-if="isDraft(portfolio.published_at) && (isAdmin || isEditor)"
               href="#"
@@ -111,6 +107,9 @@
               @click="showPublishModal"
             >
               {{ trans.publish }}
+            </a>
+            <a v-else href="#" class="dropdown-item" @click="showDraftModal">
+              {{ trans.draft_convert }}
             </a>
             <a href="#" class="dropdown-item" @click="showSettingsModal">
               {{ trans.general_settings }}
@@ -181,6 +180,11 @@
         :post="portfolio"
         @publish="updatePublishedAt"
       />
+      <draft-modal
+        ref="draftModal"
+        :post="portfolio"
+        @draft="updatePublishedAt"
+      />
       <settings-modal-portfolio
         ref="settingsModalPortfolio"
         :portfolio="portfolio"
@@ -231,6 +235,7 @@ import GalleryModal from "../components/modals/GalleryModal";
 import NProgress from "nprogress";
 import PageHeader from "../components/PageHeader";
 import PublishModal from "../components/modals/PublishModal";
+import DraftModal from "../components/modals/DraftModal";
 import QuillEditor from "../components/editor/QuillEditor";
 import SeoModal from "../components/modals/SeoModal";
 import SettingsModalPortfolio from "../components/modals/SettingsModalPortfolio";
@@ -257,6 +262,7 @@ export default {
     PageHeader,
     SeoModal,
     SettingsModalPortfolio,
+    DraftModal,
   },
 
   mixins: [status],
@@ -305,6 +311,7 @@ export default {
           },
           year: null,
           company: null,
+          company_url: null,
         },
         published_at: null,
         featured_image: null,
@@ -453,6 +460,11 @@ export default {
           );
           this.portfolio.info.year = get(data.portfolio.info, "year", "");
           this.portfolio.info.company = get(data.portfolio.info, "company", "");
+          this.portfolio.info.company_url = get(
+            data.portfolio.info,
+            "company_url",
+            ""
+          );
           this.portfolio.published_at = get(data.portfolio, "published_at", "");
           this.portfolio.featured_image = get(
             data.portfolio,
@@ -663,6 +675,10 @@ export default {
 
     showPublishModal() {
       $(this.$refs.publishModal.$el).modal("show");
+    },
+
+    showDraftModal() {
+      $(this.$refs.draftModal.$el).modal("show");
     },
 
     showSettingsModal() {
